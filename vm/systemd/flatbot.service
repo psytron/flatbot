@@ -1,0 +1,17 @@
+[Unit]
+Description=octopus Harvest daemon
+After=network.target
+
+[Service]
+Environment="PYTHONUNBUFFERED=TRUE"
+Environment="OCTOPUS_ENV=prod"
+User=deploy
+Group=www-data
+WorkingDirectory=/home/deploy/octopus/octopus
+ExecStart=/home/deploy/octopus/envoctopus/bin/python /home/deploy/octopus/octopus/manage.py harvest
+Restart=always
+StandardOutput=syslog+console
+StandardError=syslog+console
+
+[Install]
+WantedBy=multi-user.target
